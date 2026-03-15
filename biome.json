@@ -20,11 +20,25 @@
       "recommended": true,
       "suspicious": {
         "noUnknownAtRules": "off"
+      },
+      "nursery": {
+        "useSortedClasses": {
+          "level": "off",
+          "options": {
+            "functions": ["clsx", "cva", "twMerge"],
+            "attributes": ["className", "class"]
+          }
+        }
       }
     },
     "domains": {
       "next": "recommended",
       "react": "recommended"
+    }
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
     }
   },
   "assist": {
