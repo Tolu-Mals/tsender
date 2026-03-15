@@ -12,7 +12,7 @@ export default function Header() {
 
                 <div className="flex items-center gap-4 sm:gap-6">
                     <a
-                        href="https://github.com/Tolu-Mals/fullstack-web3-course"
+                        href="https://github.com/Tolu-Mals/tsender"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-foreground/80 hover:text-foreground transition-all duration-300 hover:scale-110 active:scale-95"
