@@ -45,8 +45,8 @@ export default function AirdropForm() {
               <Input
                 name="token-address"
                 id="token-address"
-                placeholder="0x..."
-                className="h-12 bg-white/5 border-white/10 focus:border-blue-500/50 focus:ring-blue-500/20"
+                placeholder="0x0000...0000"
+                className="h-12 border-slate-200 dark:border-white/10 focus:border-blue-500 focus:ring-blue-500/10"
               />
             </div>
 
@@ -60,8 +60,8 @@ export default function AirdropForm() {
                 <Textarea
                   name="recipients"
                   id="recipients"
-                  placeholder="Enter addresses (one per line)"
-                  className="min-h-[200px] resize-none bg-white/5 border-white/10 focus:border-emerald-500/50 focus:ring-emerald-500/20"
+                  placeholder="0x71C...6d8976F 0x15d...Aa2C6A65"
+                  className="min-h-[200px] resize-none border-slate-200 dark:border-white/10 focus:border-emerald-500 focus:ring-emerald-500/10"
                 />
                 <p className="text-[10px] text-muted-foreground px-1 uppercase tracking-wider font-bold">
                   One address per line
@@ -77,8 +77,8 @@ export default function AirdropForm() {
                 <Textarea
                   name="amounts"
                   id="amounts"
-                  placeholder="Enter amounts (one per line)"
-                  className="min-h-[200px] resize-none bg-white/5 border-white/10 focus:border-amber-500/50 focus:ring-amber-500/20"
+                  placeholder="0.5 1.25 10"
+                  className="min-h-[200px] resize-none border-slate-200 dark:border-white/10 focus:border-amber-500 focus:ring-amber-500/10"
                 />
                 <p className="text-[10px] text-muted-foreground px-1 uppercase tracking-wider font-bold">
                   Corresponding to recipients
