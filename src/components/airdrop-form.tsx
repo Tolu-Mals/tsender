@@ -4,21 +4,50 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { useChainId, useConfig, useAccount } from "wagmi";
+import { useChainId, useConfig, useAccount, useWriteContract } from "wagmi";
 import { Coins, Users, HandCoins, Send } from "lucide-react";
 import { chainsToTSender, tsenderAbi, erc20Abi } from "@/constants";
-import { readContract } from "@wagmi/core";
+import { readContract, waitForTransactionReceipt } from "@wagmi/core";
 import { calculateTotal } from "@/lib/utils";
 
 export default function AirdropForm() {
   const chainId = useChainId();
   const config = useConfig();
   const account = useAccount();
+  const { data: hash, writeContractAsync, isPending } = useWriteContract();
 
   const handleSubmit = async (data: FormData) => {
-    const tokenAddress = data.get("token-address");
-    const recipients = data.get("recipients");
-    const amounts = data.get("amounts");
+    const tokenAddress = data.get("token-address") as string;
+    const recipients = data.get("recipients") as string;
+    const amounts = data.get("amounts") as string;
+
+    async function airdropERC20() {
+      const txHash = await writeContractAsync({
+        abi: tsenderAbi,
+        address: tsenderAddress as `0x${string}`,
+        functionName: "airdropERC20",
+        args: [
+          tokenAddress,
+          recipients
+            .split(/[\n,]+/)
+            .map((address) => address.trim())
+            .filter((address) => address !== ""),
+          amounts
+            .split(/[\n,]+/)
+            .map((amount) => amount.trim())
+            .filter((amount) => amount !== ""),
+          BigInt(totalAmount),
+        ],
+      });
+
+      const receipt = await waitForTransactionReceipt(config, {
+        hash: txHash,
+      });
+
+      if (receipt.status === "success") {
+        console.log("Airdropped: ", receipt);
+      }
+    }
 
     if (!tokenAddress || !recipients || !amounts) {
       return;
@@ -34,6 +63,23 @@ export default function AirdropForm() {
     const totalAmount = calculateTotal(amounts as string);
 
     if ((approvedAmount || 0) < totalAmount) {
+      const txHash = await writeContractAsync({
+        abi: erc20Abi,
+        address: tokenAddress as `0x${string}`,
+        functionName: "approve",
+        args: [tsenderAddress, BigInt(totalAmount)],
+      });
+
+      const receipt = await waitForTransactionReceipt(config, {
+        hash: txHash,
+      });
+
+      if (receipt.status === "success") {
+        console.log("Approved: ", receipt);
+        await airdropERC20();
+      }
+    } else {
+      await airdropERC20();
     }
   };
 
