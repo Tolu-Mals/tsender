@@ -1,4 +1,4 @@
-import AirdropForm from "@/components/airdrop-form";
+import HomeContent from "@/components/home-content";
 
 export default function Home() {
   return (
@@ -9,7 +9,7 @@ export default function Home() {
       <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-500/10 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-4000" />
 
       <div className="relative">
-        <AirdropForm />
+        <HomeContent />
       </div>
     </main>
   );

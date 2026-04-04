@@ -221,39 +221,6 @@ export default function AirdropForm() {
               </div>
             </div>
 
-            {/* Details Section */}
-            {(tokenName || totalAmount > 0) && (
-              <div className="rounded-2xl border border-indigo-500/20 bg-indigo-500/10 p-5 space-y-4 animate-in fade-in slide-in-from-top-4 duration-500">
-                <div className="flex items-center gap-2 text-indigo-400 mb-2">
-                  <Info className="h-4 w-4" />
-                  <span className="text-xs font-bold uppercase tracking-widest">
-                    Airdrop Details
-                  </span>
-                </div>
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="space-y-1.5">
-                    <p className="text-[10px] text-indigo-300/70 uppercase font-black tracking-widest">
-                      Contract Name
-                    </p>
-                    <p className="text-base font-semibold text-white truncate">
-                      {isFetchingName
-                        ? "Loading..."
-                        : tokenName || "Unknown Token"}
-                    </p>
-                  </div>
-                  <div className="space-y-1.5">
-                    <p className="text-[10px] text-indigo-300/70 uppercase font-black tracking-widest">
-                      Total Amount
-                    </p>
-                    <p className="text-base font-bold text-emerald-400">
-                      {totalAmount.toLocaleString()}{" "}
-                      {tokenName && `($${tokenName})`}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
-
             <div className="grid gap-8 sm:grid-cols-2">
               {/* Recipients Field */}
               <div className="space-y-3 sm:col-span-1">
@@ -300,8 +267,41 @@ export default function AirdropForm() {
               </div>
             </div>
 
+            {/* Details Section */}
+            {(tokenName || totalAmount > 0) && (
+              <div className="rounded-2xl border border-indigo-500/20 bg-indigo-500/10 p-5 space-y-4 animate-in fade-in slide-in-from-top-4 duration-500">
+                <div className="flex items-center gap-2 text-indigo-400 mb-2">
+                  <Info className="h-4 w-4" />
+                  <span className="text-xs font-bold uppercase tracking-widest">
+                    Airdrop Details
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="space-y-1.5">
+                    <p className="text-[10px] text-indigo-300/70 uppercase font-black tracking-widest">
+                      Contract Name
+                    </p>
+                    <p className="text-base font-semibold text-white truncate">
+                      {isFetchingName
+                        ? "Loading..."
+                        : tokenName || "Unknown Token"}
+                    </p>
+                  </div>
+                  <div className="space-y-1.5">
+                    <p className="text-[10px] text-indigo-300/70 uppercase font-black tracking-widest">
+                      Total Amount To Send
+                    </p>
+                    <p className="text-base font-bold text-emerald-400">
+                      {totalAmount.toLocaleString()}{" "}
+                      {tokenName && `($${tokenName})`}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+
             <Button
-              className="w-full text-lg font-bold group h-16 rounded-xl bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-xl shadow-indigo-500/25 border border-white/10 transition-all active:scale-[0.98]"
+              className="w-full text-lg font-bold group h-16 rounded-xl bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-xl shadow-indigo-500/25 border border-white/10 transition-all active:scale-[0.98] cursor-pointer"
               size="lg"
               type="submit"
               disabled={isProcessing}
